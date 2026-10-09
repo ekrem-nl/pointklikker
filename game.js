@@ -6,5 +6,5 @@ class Shop {
     this.pps = pps
     this.description = description
   }
-  // ...rest stays the same
+  
 }
