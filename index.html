@@ -1,69 +1,178 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Point Clikker</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Ball Clicker</title>
+
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <header class="topbar">
+
+  <header class="topbar">
     <div class="topbar-inner">
+
       <div class="brand">
         <span class="brand-dot"></span>
-        <span class="brand-name">Point Clicker</span>
+        <span class="brand-name">Ball Clicker</span>
       </div>
+
       <div class="stats">
+
         <div class="stat">
           <span class="stat-value" id="pointsDisplay">0</span>
-          <span class="stat-label">points</span>
+          <span class="stat-label">punten</span>
         </div>
+
         <div class="stat-divider"></div>
+
         <div class="stat">
           <span class="stat-value" id="ppsDisplay">0</span>
-          <span class="stat-label">per second</span>
+          <span class="stat-label">per seconde</span>
         </div>
+
       </div>
+
     </div>
   </header>
 
+
   <main class="layout">
 
+    <!-- LINKERKANT: VOETBALVELD EN BAL -->
     <section class="click-panel">
+
       <div class="click-stage">
-        <button id="clickButton" class="click-button" aria-label="Click to earn points">
-          <span class="click-button-value" id="clickButtonValue">+1</span>
+
+        <button
+          id="clickButton"
+          class="click-button"
+          aria-label="Klik op de voetbal om punten te verdienen"
+        >
+
+          <img
+            src="soccer-ball.png"
+            alt="Voetbal"
+            class="ball-image"
+          >
+
+          <span
+            class="click-button-value"
+            id="clickButtonValue"
+          >
+            +1
+          </span>
+
         </button>
-        <p class="click-hint">Click the button to earn points</p>
+
+        <p class="click-hint">
+          Klik op de bal om punten te verdienen
+        </p>
+
       </div>
+
     </section>
 
+
+    <!-- RECHTERKANT: SHOP -->
     <section class="shop-panel">
+
       <div class="shop-header">
         <h2>Shop</h2>
-        <p>Buy generators to earn points automatically</p>
+        <p>Koop gebouwen en upgrades</p>
       </div>
 
-      <div class="shop-list" id="shopList"></div>
+
+      <!-- GEBOUWEN -->
+      <div class="store-section">
+
+        <h3>Gebouwen</h3>
+
+        <div
+          class="shop-list"
+          id="shopList"
+        ></div>
+
       </div>
 
-       <button id="resetButton" class="reset-button">Reset Progress</button>
+
+      <!-- UPGRADES -->
+      <div class="store-section">
+
+        <h3>Upgrades</h3>
+
+        <div
+          class="shop-list"
+          id="upgradeList"
+        ></div>
+
+      </div>
+
+
+      <!-- RESET -->
+      <button
+        id="resetButton"
+        class="reset-button"
+      >
+        Reset Progress
+      </button>
+
     </section>
 
   </main>
 
-  <div id="resetModal" class="modal-overlay hidden">
+
+  <!-- RESET POPUP -->
+  <div
+    id="resetModal"
+    class="modal-overlay hidden"
+  >
+
     <div class="modal">
-      <h3>Reset your progress?</h3>
-      <p>This will permanently delete your points, upgrades and saved data. This cannot be undone.</p>
+
+      <h3>Voortgang resetten?</h3>
+
+      <p>
+        Dit verwijdert al je punten, gebouwen,
+        upgrades en opgeslagen gegevens.
+        Dit kan niet ongedaan worden gemaakt.
+      </p>
+
       <div class="modal-actions">
-        <button id="cancelReset" class="modal-btn modal-btn-secondary">Cancel</button>
-        <button id="confirmReset" class="modal-btn modal-btn-danger">Reset</button>
+
+        <button
+          id="cancelReset"
+          class="modal-btn modal-btn-secondary"
+        >
+          Annuleren
+        </button>
+
+        <button
+          id="confirmReset"
+          class="modal-btn modal-btn-danger"
+        >
+          Reset
+        </button>
+
       </div>
+
     </div>
+
   </div>
-  <div id="floatingLayer" class="floating-layer"></div>
+
+
+  <!-- +1 ANIMATIES -->
+  <div
+    id="floatingLayer"
+    class="floating-layer"
+  ></div>
+
 
   <script src="script.js"></script>
+
 </body>
+
 </html>
