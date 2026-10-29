@@ -31,11 +31,15 @@ class Upgrade {
   }
 
   buy(game) {
-    if (this.purchased || game.points < this.cost) return false;
+    if (!this.canBuy(game)) return false;
     game.points -= this.cost;
     this.purchased = true;
     game.recalculateBonuses();
     return true;
+  }
+
+  canBuy(game) {
+    return !this.purchased && game.points >= this.cost;
   }
 
   apply(game) {}
@@ -59,6 +63,27 @@ class BuildingUpgrade extends Upgrade {
 
 class GlobalUpgrade extends Upgrade {
   apply(game) { game.globalPpsMultiplier *= this.value; }
+}
+
+// Bal-skins erven van Upgrade en worden stap voor stap vrijgespeeld.
+class BallSkinUpgrade extends Upgrade {
+  constructor(id, name, cost, description, image, previousSkin = null) {
+    super(id, name, cost, description, 1);
+    Object.assign(this, { image, previousSkin });
+  }
+
+  canBuy(game) {
+    const previous = this.previousSkin && game.upgrades.find(item => item.id === this.previousSkin);
+    return super.canBuy(game) && (!this.previousSkin || previous?.purchased);
+  }
+
+  apply(game) {
+    game.elements.ballImage.src = this.image;
+    game.elements.ballImage.alt = `Voetbal: ${this.name}`;
+    game.elements.ballImage.classList.remove("skin-change");
+    void game.elements.ballImage.offsetWidth;
+    game.elements.ballImage.classList.add("skin-change");
+  }
 }
 
 class SoccerClickerGame {
@@ -85,11 +110,15 @@ class SoccerClickerGame {
       new BuildingUpgrade("factoryUpgrade", "Moderne Fabriek", 7000, "Fabrieken geven 2x zoveel punten", "factory", 2),
       new GlobalUpgrade("sponsor", "Grote Sponsor", 15000, "Alle gebouwen produceren 1.5x zoveel", 1.5),
       new ClickUpgrade("diamondBall", "Diamanten Bal", 40000, "Klikpunten worden 3x zo sterk", 3),
-      new BuildingUpgrade("stadiumUpgrade", "Stadion Upgrade", 75000, "Stadions geven 2x zoveel punten", "stadium", 2)
+      new BuildingUpgrade("stadiumUpgrade", "Stadion Upgrade", 75000, "Stadions geven 2x zoveel punten", "stadium", 2),
+      new BallSkinUpgrade("goldSkin", "Gouden Voetbal", 750, "Speel de gouden bal vrij", "ball-gold.svg"),
+      new BallSkinUpgrade("redSkin", "Rode Voetbal", 5000, "Speel de rode bal vrij", "ball-red.svg", "goldSkin"),
+      new BallSkinUpgrade("multicolorSkin", "Regenboog Voetbal", 25000, "Speel de meerkleurige bal vrij", "ball-multicolor.svg", "redSkin"),
+      new BallSkinUpgrade("blueSkin", "Blauwe Voetbal", 100000, "Speel de blauwe bal vrij", "ball-blue.svg", "multicolorSkin")
     ];
 
     this.elements = Object.fromEntries([
-      "pointsDisplay", "ppsDisplay", "clickButton", "clickButtonValue",
+      "pointsDisplay", "ppsDisplay", "clickButton", "clickButtonValue", "ballImage",
       "shopList", "upgradeList", "resetButton", "resetModal",
       "cancelReset", "confirmReset", "floatingLayer"
     ].map(id => [id, document.getElementById(id)]));
@@ -117,6 +146,8 @@ class SoccerClickerGame {
     this.clickMultiplier = 1;
     this.globalPpsMultiplier = 1;
     this.buildings.forEach(building => building.multiplier = 1);
+    this.elements.ballImage.src = "soccer-ball.png";
+    this.elements.ballImage.alt = "Voetbal";
     this.upgrades.filter(upgrade => upgrade.purchased).forEach(upgrade => upgrade.apply(this));
   }
 
@@ -190,8 +221,13 @@ class SoccerClickerGame {
 
     this.upgrades.forEach((upgrade, index) => {
       const button = document.getElementById(`upgrade-${index}`);
-      button.textContent = upgrade.purchased ? "Gekocht" : `Koop - ${upgrade.cost.toLocaleString("nl-NL")}`;
-      button.disabled = upgrade.purchased || this.points < upgrade.cost;
+      const unlocked = upgrade.canBuy(this);
+      const waitingForPreviousBall = upgrade instanceof BallSkinUpgrade &&
+        upgrade.previousSkin &&
+        !this.upgrades.find(item => item.id === upgrade.previousSkin)?.purchased;
+      button.textContent = upgrade.purchased ? "Gekocht" :
+        waitingForPreviousBall ? "Eerst vorige bal" : `Koop - ${upgrade.cost.toLocaleString("nl-NL")}`;
+      button.disabled = !unlocked;
       document.getElementById(`upgrade-card-${index}`).style.opacity = upgrade.purchased ? "0.5" : "1";
     });
   }
