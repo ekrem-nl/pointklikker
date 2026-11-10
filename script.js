@@ -1,4 +1,4 @@
-// Alle productie-eenheden gebruiken dezelfde klasse.
+
 class Building {
   constructor(id, name, baseCost, pointsPerSecond) {
     Object.assign(this, { id, name, baseCost, pointsPerSecond });
@@ -23,7 +23,7 @@ class Building {
   }
 }
 
-// Upgrade is de basisklasse; de drie subclasses geven elk een ander effect.
+
 class Upgrade {
   constructor(id, name, cost, description, value) {
     Object.assign(this, { id, name, cost, description, value });

@@ -18,9 +18,6 @@ body {
 }
 
 
-/* =========================
-   BOVENBALK
-========================= */
 
 .topbar {
   position: fixed;
@@ -104,9 +101,7 @@ body {
 }
 
 
-/* =========================
-   MAIN LAYOUT
-========================= */
+
 
 .layout {
   width: 100%;
@@ -116,9 +111,7 @@ body {
 }
 
 
-/* =========================
-   VOETBALVELD
-========================= */
+
 
 .click-panel {
   position: relative;
@@ -153,9 +146,7 @@ body {
 }
 
 
-/* =========================
-   ECHTE VOETBAL
-========================= */
+
 
 .click-button {
   position: relative;
@@ -240,9 +231,7 @@ body {
 }
 
 
-/* =========================
-   SHOP RECHTS
-========================= */
+
 
 .shop-panel {
   position: fixed;
@@ -269,9 +258,7 @@ body {
 }
 
 
-/* =========================
-   SHOP HEADER
-========================= */
+
 
 .shop-header {
   position: sticky;
@@ -306,9 +293,7 @@ body {
 }
 
 
-/* =========================
-   STORE SECTIONS
-========================= */
+
 
 .store-section {
   margin-bottom: 18px;
@@ -337,9 +322,7 @@ body {
 }
 
 
-/* =========================
-   SHOP LIST
-========================= */
+
 
 .shop-list {
   display: flex;
@@ -352,9 +335,7 @@ body {
 }
 
 
-/* =========================
-   SHOP ITEM
-========================= */
+
 
 .shop-item {
   min-height: 100px;
@@ -414,9 +395,7 @@ body {
 }
 
 
-/* =========================
-   BUY BUTTON
-========================= */
+
 
 .buy-button {
   min-width: 100px;
@@ -469,9 +448,6 @@ body {
 }
 
 
-/* =========================
-   RESET BUTTON
-========================= */
 
 .reset-button {
   width: calc(100% - 20px);
@@ -506,9 +482,6 @@ body {
 }
 
 
-/* =========================
-   RESET POPUP
-========================= */
 
 .modal-overlay {
   position: fixed;
@@ -594,9 +567,7 @@ body {
 }
 
 
-/* =========================
-   +PUNTEN ANIMATIE
-========================= */
+
 
 .floating-layer {
   position: fixed;
@@ -642,9 +613,7 @@ body {
 }
 
 
-/* =========================
-   SCROLLBAR SHOP
-========================= */
+
 
 .shop-panel::-webkit-scrollbar {
   width: 10px;
@@ -663,9 +632,7 @@ body {
 }
 
 
-/* =========================
-   TABLET / MOBIEL
-========================= */
+
 
 @media (max-width: 900px) {
 
