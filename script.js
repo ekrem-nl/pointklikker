@@ -65,7 +65,7 @@ class GlobalUpgrade extends Upgrade {
   apply(game) { game.globalPpsMultiplier *= this.value; }
 }
 
-// Bal-skins erven van Upgrade en worden stap voor stap vrijgespeeld.
+
 class BallSkinUpgrade extends Upgrade {
   constructor(id, name, cost, description, image, previousSkin = null) {
     super(id, name, cost, description, 1);
